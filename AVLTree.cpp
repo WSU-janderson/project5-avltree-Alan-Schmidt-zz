@@ -15,43 +15,43 @@ bool remove(const std::string& key) {
 
 }
 
-bool contains(const std::string& key) const {
+bool contains(const std::string& key) {
 
 }
 
-optional<size_t> get(const std::string& key) const {
+optional<size_t> get(const std::string& key) {
 
 }
 
-size_t& operator[](const std::string& key) {
+size_t& AVLTree::operator[](const std::string& key) {
 
 }
 
-vector<string> findRange( const std::string& lowKey, const string& highKey) const {
+vector<string> findRange( const std::string& lowKey, const string& highKey) {
 
 }
 
-vector<string> keys() const {
+vector<string> keys() {
 
 }
 
-size_t size() const {
+size_t size() {
 
 }
 
-size_t getHeight() const {
+size_t getHeight() {
 
 }
 
-AVLTree(const AVLTree& other) {
+AVLTree::AVLTree(const AVLTree& other) {
 
 }
 
-void operator=(const AVLTree& other) {
+void AVLTree::operator=(const AVLTree& other) {
 
 }
 
-~AVLTree() {
+AVLTree::~AVLTree() {
 
 }
 

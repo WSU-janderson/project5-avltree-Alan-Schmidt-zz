@@ -15,58 +15,31 @@ public:
     using KeyType = string;
     using ValueType = size_t;
 
-    bool insert(const string& key, size_t value) {
+    bool insert(const string& key, size_t value);
 
-    }
+    bool remove(const string& key);
 
-    bool remove(const string& key) {
+    bool contains(const string& key) const;
 
-    }
+   optional<size_t> get(const string& key) const;
 
-    bool contains(const string& key) const {
+    size_t& operator[](const string& key);
 
-    }
+    vector<string> findRange( const string& lowKey, const string& highKey) const;
 
-   optional<size_t> get(const string& key) const {
+   vector<string> keys() const;
 
-    }
+    size_t size() const;
 
-    size_t& operator[](const string& key) {
+    size_t getHeight() const;
 
-    }
+    AVLTree(const AVLTree& other);
 
-    vector<string> findRange( const string& lowKey,
-     const string& highKey) const {
+    void operator=(const AVLTree& other);
 
-    }
+   ~AVLTree();
 
-   vector<string> keys() const {
-
-    }
-
-    size_t size() const {
-
-    }
-
-    size_t getHeight() const {
-
-    }
-
-    AVLTree(const AVLTree& other) {
-
-    }
-
-    void operator=(const AVLTree& other) {
-
-    }
-
-   ~AVLTree() {
-
-    }
-
-    friend ostream& operator<<(ostream& os, const AVLTree & avlTree) {
-
-    }
+    friend ostream& operator<<(ostream& os, const AVLTree & avlTree);
 
  //declarations provided at start
 protected:
