@@ -5,14 +5,70 @@
 #ifndef AVLTREE_H
 #define AVLTREE_H
 #include <string>
+#include <vector>
+#include <optional>
 
 using namespace std;
 
 class AVLTree {
 public:
-    using KeyType = std::string;
+    using KeyType = string;
     using ValueType = size_t;
 
+    bool insert(const string& key, size_t value) {
+
+    }
+
+    bool remove(const string& key) {
+
+    }
+
+    bool contains(const string& key) const {
+
+    }
+
+   optional<size_t> get(const string& key) const {
+
+    }
+
+    size_t& operator[](const string& key) {
+
+    }
+
+    vector<string> findRange( const string& lowKey,
+     const string& highKey) const {
+
+    }
+
+   vector<string> keys() const {
+
+    }
+
+    size_t size() const {
+
+    }
+
+    size_t getHeight() const {
+
+    }
+
+    AVLTree(const AVLTree& other) {
+
+    }
+
+    void operator=(const AVLTree& other) {
+
+    }
+
+   ~AVLTree() {
+
+    }
+
+    friend ostream& operator<<(ostream& os, const AVLTree & avlTree) {
+
+    }
+
+ //declarations provided at start
 protected:
     class AVLNode {
     public:
@@ -33,11 +89,6 @@ protected:
 
     };
 
-public:
-
-
-
-
     private:
     AVLNode* root;
 
@@ -49,6 +100,6 @@ public:
     // You will implement this, but it is needed for removeNode()
     void balanceNode(AVLNode*& node);
 
-};
+}; //end class AVLTree
 
 #endif //AVLTREE_H

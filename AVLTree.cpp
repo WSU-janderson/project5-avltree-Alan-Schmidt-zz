@@ -1,7 +1,66 @@
 #include "AVLTree.h"
 
 #include <string>
+#include <vector>
+#include <optional>
 
+//import
+using namespace std;
+
+bool insert(const std::string& key, size_t value) {
+
+}
+
+bool remove(const std::string& key) {
+
+}
+
+bool contains(const std::string& key) const {
+
+}
+
+optional<size_t> get(const std::string& key) const {
+
+}
+
+size_t& operator[](const std::string& key) {
+
+}
+
+vector<string> findRange( const std::string& lowKey, const string& highKey) const {
+
+}
+
+vector<string> keys() const {
+
+}
+
+size_t size() const {
+
+}
+
+size_t getHeight() const {
+
+}
+
+AVLTree(const AVLTree& other) {
+
+}
+
+void operator=(const AVLTree& other) {
+
+}
+
+~AVLTree() {
+
+}
+
+ostream& operator<<(ostream& os, const AVLTree & avlTree) {
+
+}
+
+
+//these methods included at start
 size_t AVLTree::AVLNode::numChildren() const {
     return 0;
 }
