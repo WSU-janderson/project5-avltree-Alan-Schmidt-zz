@@ -7,19 +7,64 @@
 //import
 using namespace std;
 
-bool insert(const std::string& key, size_t value) {
+AVLTree::AVLTree() {
+
+    root = nullptr;
+
+} //end AVLTree constructor
+
+bool AVLTree::insert(const std::string& key, size_t value) {
+
+    if (contains(key) == false) {
+
+        if (recursiveInsert(root, key, value) == true) { //I'm pretty sure this will work?
+            return true;
+        } //returns true if they key was inserted properly
+
+    }
+
+    return false; //returns false if there is a duplicate key or if it was not inserted properly
+
+} //end insert
+
+bool AVLTree::recursiveInsert(AVLNode*& node, const string& key, size_t value) {
+
+    if (node == nullptr) {
+
+        node = new AVLNode();
+        node->key = key;
+        node->value = value;
+        node->left = nullptr;
+        node->right = nullptr;
+        return true;
+
+    } //adds a new node with its key and value if the node is null and sets it's new left and right nodes to null
+
+    if (key < node->key) {
+        return recursiveInsert(node->left, key, value);
+    } //tries to insert left if key is less than the node's key
+
+    else if (key > node->key) {
+        return recursiveInsert(node->right, key, value);
+    } //tries to insert right if key is greater than the node's key
+
+    else {
+        return false; //error catcher
+    }
+
+    //TODO: Balance Tree
+
+} //end recursiveInsert
+
+bool AVLTree::remove(const std::string& key) {
 
 }
 
-bool remove(const std::string& key) {
+bool AVLTree::contains(const std::string& key) const {
 
 }
 
-bool contains(const std::string& key) {
-
-}
-
-optional<size_t> get(const std::string& key) {
+optional<size_t> AVLTree::get(const std::string& key) const {
 
 }
 
@@ -27,19 +72,19 @@ size_t& AVLTree::operator[](const std::string& key) {
 
 }
 
-vector<string> findRange( const std::string& lowKey, const string& highKey) {
+vector<string> AVLTree::findRange( const std::string& lowKey, const string& highKey) const{
 
 }
 
-vector<string> keys() {
+vector<string> AVLTree::keys() const {
 
 }
 
-size_t size() {
+size_t AVLTree::size() const{
 
 }
 
-size_t getHeight() {
+size_t AVLTree::getHeight() const{
 
 }
 

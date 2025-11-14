@@ -15,19 +15,21 @@ public:
     using KeyType = string;
     using ValueType = size_t;
 
+    AVLTree();
+
     bool insert(const string& key, size_t value);
 
     bool remove(const string& key);
 
     bool contains(const string& key) const;
 
-   optional<size_t> get(const string& key) const;
+    optional<size_t> get(const string& key) const;
 
     size_t& operator[](const string& key);
 
     vector<string> findRange( const string& lowKey, const string& highKey) const;
 
-   vector<string> keys() const;
+    vector<string> keys() const;
 
     size_t size() const;
 
@@ -37,7 +39,7 @@ public:
 
     void operator=(const AVLTree& other);
 
-   ~AVLTree();
+    ~AVLTree();
 
     friend ostream& operator<<(ostream& os, const AVLTree & avlTree);
 
@@ -64,6 +66,8 @@ protected:
 
     private:
     AVLNode* root;
+
+    bool recursiveInsert(AVLNode*& node, const string& key, size_t value);
 
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node
