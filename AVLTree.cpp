@@ -58,15 +58,105 @@ bool AVLTree::recursiveInsert(AVLNode*& node, const string& key, size_t value) {
 
 bool AVLTree::remove(const std::string& key) {
 
-}
+    if (contains(key) == false) {
+
+        if (recursiveRemove(root, key) == true) {
+            return true;
+        } //returns true if the node was removed properly
+
+        return false; //returns false if there is a duplicate key or if it was not removed properly
+    }
+
+} //end remove
+
+bool AVLTree::recursiveRemove(AVLNode *&node, const string &key) {
+
+    if (key == node->key) {
+        delete node;
+        //TODO: remove node properly
+        return true;
+    } //removes the node, deletes it from memory, and returns true when the node is found
+
+    else if (key < node->key) {
+        return recursiveRemove(node->left, key);
+    } //if the key is less than the current node, checks the nodes left key
+
+    else if (key > node->key) {
+        return recursiveRemove(node->right, key);
+    } //if the key is greater than the current node, checks the nodes right key
+
+    else {
+        return false; //error catcher
+    }
+
+    //TODO: balance tree
+
+} //remove recursiveRemove
+
 
 bool AVLTree::contains(const std::string& key) const {
 
-}
+    return recursiveContains(root, key);
+
+} //end contains
+
+bool AVLTree::recursiveContains(const AVLNode *node, const string& key) const {
+
+    if (node == nullptr) {
+        return false;
+    } //returns false if the tree is empty
+
+    if (key == node->key) {
+        return true;
+    } //returns true if the key is found
+
+    else if (key < node->key) {
+        return recursiveContains(node->left, key);
+    } //if the key is less than the current node, checks the nodes left key
+
+    else if (key > node->key) {
+        return recursiveContains(node->right, key);
+    } //if the key is greater than the current node, checks the nodes right key
+
+    else {
+        return false; //returns false if the key is not found in the tree and is an error catcher
+    }
+
+} //end recursiveContains
 
 optional<size_t> AVLTree::get(const std::string& key) const {
 
-}
+    if (contains(key) == false) {
+
+        return recursiveGet(root, key);
+
+    } //if the key is in the tree, returns the result of recursiveGet
+
+    else {
+        return nullopt;
+    } //returns nullopt if key is not in tree
+
+} //end get
+
+optional<size_t> AVLTree::recursiveGet(const AVLNode *node, const string& key) const {
+
+    if (key == node->key) {
+        return node->value;
+    } //returns the value associated with the node if the key matches the current node's key
+
+    else if (key < node->key) {
+        return recursiveGet(node->left, key);
+    } //if the key is less than the current node, checks the nodes left key
+
+    else if (key > node->key) {
+        return recursiveGet(node->right, key);
+    } //if the key is greaterthan the current node, checks the nodes right key
+
+    else {
+        return nullopt;
+    } //error catcher
+
+} //end recursiveGet
 
 size_t& AVLTree::operator[](const std::string& key) {
 
@@ -167,4 +257,5 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
 }
 
 void AVLTree::balanceNode(AVLNode *&node) {
+
 }

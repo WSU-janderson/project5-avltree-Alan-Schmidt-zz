@@ -69,6 +69,12 @@ protected:
 
     bool recursiveInsert(AVLNode*& node, const string& key, size_t value);
 
+    bool recursiveRemove(AVLNode*& node, const string& key);
+
+    bool recursiveContains(const AVLNode* node, const string& key) const;
+
+    optional<size_t> recursiveGet(const AVLNode *node, const string& key) const;
+
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node
     bool remove(AVLNode*& current, KeyType key);
