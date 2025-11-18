@@ -27,7 +27,7 @@ public:
 
     size_t& operator[](const string& key);
 
-    vector<string> findRange( const string& lowKey, const string& highKey) const;
+    vector<size_t> findRange( const string& lowKey, const string& highKey) const;
 
     vector<string> keys() const;
 
@@ -74,6 +74,10 @@ protected:
     bool recursiveContains(const AVLNode* node, const string& key) const;
 
     optional<size_t> recursiveGet(const AVLNode *node, const string& key) const;
+
+    AVLNode& recursiveBracket(AVLNode*& node, const string& key);
+
+    vector<size_t> recursiveFindRange(const AVLNode* node, const std::string& lowKey, const std::string& highKey) const;
 
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node

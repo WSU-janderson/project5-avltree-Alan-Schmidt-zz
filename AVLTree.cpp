@@ -1,10 +1,10 @@
-#include "AVLTree.h"
 
+//imports
+#include "AVLTree.h"
 #include <string>
 #include <vector>
 #include <optional>
 
-//import
 using namespace std;
 
 AVLTree::AVLTree() {
@@ -64,8 +64,9 @@ bool AVLTree::remove(const std::string& key) {
             return true;
         } //returns true if the node was removed properly
 
-        return false; //returns false if there is a duplicate key or if it was not removed properly
     }
+
+    return false; //returns false if there is a duplicate key or if it was not removed properly
 
 } //end remove
 
@@ -150,7 +151,7 @@ optional<size_t> AVLTree::recursiveGet(const AVLNode *node, const string& key) c
 
     else if (key > node->key) {
         return recursiveGet(node->right, key);
-    } //if the key is greaterthan the current node, checks the nodes right key
+    } //if the key is greater than the current node, checks the nodes right key
 
     else {
         return nullopt;
@@ -160,11 +161,59 @@ optional<size_t> AVLTree::recursiveGet(const AVLNode *node, const string& key) c
 
 size_t& AVLTree::operator[](const std::string& key) {
 
-}
+    return recursiveBracket(root, key).value;
 
-vector<string> AVLTree::findRange( const std::string& lowKey, const string& highKey) const{
+} //end operator[]
 
-}
+AVLTree::AVLNode& AVLTree::recursiveBracket(AVLNode*& node, const std::string& key) {
+
+    if (key == node->key) {
+        return *node;
+    } //returns the pointer to the node if they key matches the node's key
+
+    else if (key < node->key) {
+        return recursiveBracket(node->left, key);
+    } //if the key is less than the current node, checks the nodes left key
+
+    else if (key > node->key) {
+        return recursiveBracket(node->right, key);
+    } //if the key is greater than the current node, checks the nodes right key
+
+    else {
+        return *node;
+    } //error catcher, isn't needed for this project just here to prevent errors
+
+} //end recursiveBracket
+
+vector<size_t> AVLTree::findRange(const std::string& lowKey, const string& highKey) const{
+
+    return recursiveFindRange(root, lowKey,highKey);
+
+} //end findRange
+
+vector<size_t> AVLTree::recursiveFindRange(const AVLNode* node, const std::string& lowKey, const std::string& highKey) const {
+
+    vector<size_t> range;
+
+    if (node == nullptr) {
+        return range;
+    } //base case, returns the vector if the node is null
+
+    if (node->key > lowKey) {
+        return recursiveFindRange(node->left, lowKey, highKey);
+    } //if the key is greater than the node's key, checks its left key
+
+    if (node -> key >= lowKey && node -> key <= highKey) {
+        range.push_back(node->value);
+    } //if the node matches the conditions, adds value to the vector range
+
+    if (node -> key < highKey) {
+        return recursiveFindRange(node->right, lowKey, highKey);
+    } //if the key is less than the node's key, checks its right key
+
+    return range; //returns the result
+
+} //end recursiveFindRange
 
 vector<string> AVLTree::keys() const {
 
