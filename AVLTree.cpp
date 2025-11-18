@@ -62,7 +62,7 @@ bool AVLTree::recursiveInsert(AVLNode*& node, const string& key, size_t value) {
 
 bool AVLTree::remove(const std::string& key) {
 
-    if (contains(key) == false) {
+    if (contains(key) == true) {
 
         if (remove(root, key) == true) {
             totalSize--;
@@ -370,8 +370,7 @@ bool AVLTree::removeNode(AVLNode*& current){
 bool AVLTree::remove(AVLNode *&current, KeyType key) {
 
     if (key == current->key) {
-        delete current;
-        //TODO: remove node properly
+        removeNode(current);
         return true;
     } //removes the node, deletes it from memory, and returns true when the node is found
 
