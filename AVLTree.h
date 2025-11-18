@@ -84,6 +84,8 @@ protected:
 
     void clear(AVLNode* node);
 
+    void printTree(ostream& os, AVLNode* node) const;
+
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node
     bool remove(AVLNode*& current, KeyType key);

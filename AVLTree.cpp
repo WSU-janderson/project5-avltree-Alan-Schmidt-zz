@@ -1,9 +1,12 @@
 
 //imports
 #include "AVLTree.h"
+
+#include <iostream>
 #include <string>
 #include <vector>
 #include <optional>
+#include <ostream>
 
 using namespace std;
 
@@ -247,7 +250,7 @@ size_t AVLTree::size() const{
 
 size_t AVLTree::getHeight() const{
 
-    //TODO: this
+    //TODO: this, use a max height var after balancing
 
 } //end getHeight
 
@@ -284,7 +287,22 @@ void AVLTree::clear(AVLNode* node) {
 
 ostream& operator<<(ostream& os, const AVLTree & avlTree) {
 
-}
+    avlTree.printTree(os, avlTree.root);
+    return os;
+
+} //end operator<<
+
+void AVLTree::printTree(ostream& os, AVLNode* node) const {
+
+    if (node == nullptr) {
+        return;
+    } //base case
+
+    printTree(os, node->left);
+    cout << "KEY: " << node->key << " with VALUE: " << node->value << endl;
+    printTree(os, node->right);
+
+} //end printTree
 
 
 //these methods included at start
