@@ -27,7 +27,7 @@ public:
 
     size_t& operator[](const string& key);
 
-    vector<size_t> findRange( const string& lowKey, const string& highKey) const;
+    vector<int> findRange( const string& lowKey, const string& highKey) const;
 
     vector<string> keys() const;
 
@@ -76,7 +76,7 @@ protected:
 
     AVLNode& recursiveBracket(AVLNode*& node, const string& key);
 
-    vector<size_t> recursiveFindRange(const AVLNode* node, const std::string& lowKey, const std::string& highKey) const;
+    vector<int> recursiveFindRange(const AVLNode* node, const std::string& lowKey, const std::string& highKey, vector<int>& range) const;
 
     vector<string> recursiveKeys(const AVLNode* node) const;
 
