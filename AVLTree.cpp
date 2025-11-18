@@ -64,7 +64,7 @@ bool AVLTree::remove(const std::string& key) {
 
     if (contains(key) == false) {
 
-        if (recursiveRemove(root, key) == true) {
+        if (remove(root, key) == true) {
             totalSize--;
             return true;
         } //returns true if the node was removed properly
@@ -74,31 +74,6 @@ bool AVLTree::remove(const std::string& key) {
     return false; //returns false if there is a duplicate key or if it was not removed properly
 
 } //end remove
-
-bool AVLTree::recursiveRemove(AVLNode *&node, const string &key) {
-
-    if (key == node->key) {
-        delete node;
-        //TODO: remove node properly
-        return true;
-    } //removes the node, deletes it from memory, and returns true when the node is found
-
-    else if (key < node->key) {
-        return recursiveRemove(node->left, key);
-    } //if the key is less than the current node, checks the nodes left key
-
-    else if (key > node->key) {
-        return recursiveRemove(node->right, key);
-    } //if the key is greater than the current node, checks the nodes right key
-
-    else {
-        return false; //error catcher
-    }
-
-    //TODO: balance tree
-
-} //remove recursiveRemove
-
 
 bool AVLTree::contains(const std::string& key) const {
 
@@ -307,16 +282,38 @@ void AVLTree::printTree(ostream& os, AVLNode* node) const {
 
 //these methods included at start
 size_t AVLTree::AVLNode::numChildren() const {
-    return 0;
-}
+
+    size_t numChildren = 0;
+
+    if (left != nullptr) {
+        numChildren++;
+    } //adds 1 if left isn't null
+
+    if (right != nullptr) {
+        numChildren++;
+    } //adds 1 if right isn't null
+
+    return numChildren;
+
+} //end numChildren
 
 bool AVLTree::AVLNode::isLeaf() const {
-    return false;
-}
+
+    if (left == nullptr && right == nullptr) {
+        return true;
+    } //returns true if both left and right are empty
+
+    else {
+        return false;
+    }
+
+} //end isLeaf
 
 size_t AVLTree::AVLNode::getHeight() const {
-    return 0;
-}
+
+    return height;
+
+} //end getHeight
 
 bool AVLTree::removeNode(AVLNode*& current){
     if (!current) {
@@ -363,8 +360,28 @@ bool AVLTree::removeNode(AVLNode*& current){
 }
 
 bool AVLTree::remove(AVLNode *&current, KeyType key) {
-    return false;
-}
+
+    if (key == current->key) {
+        delete current;
+        //TODO: remove node properly
+        return true;
+    } //removes the node, deletes it from memory, and returns true when the node is found
+
+    else if (key < current->key) {
+        return recursiveRemove(current->left, key);
+    } //if the key is less than the current node, checks the nodes left key
+
+    else if (key > current->key) {
+        return recursiveRemove(current->right, key);
+    } //if the key is greater than the current node, checks the nodes right key
+
+    else {
+        return false; //error catcher
+    }
+
+    //TODO: balance tree
+
+} //end remove
 
 void AVLTree::balanceNode(AVLNode *&node) {
 
