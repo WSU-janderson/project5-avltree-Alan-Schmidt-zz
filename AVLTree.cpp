@@ -368,11 +368,11 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
     } //removes the node, deletes it from memory, and returns true when the node is found
 
     else if (key < current->key) {
-        return recursiveRemove(current->left, key);
+        return remove(current->left, key);
     } //if the key is less than the current node, checks the nodes left key
 
     else if (key > current->key) {
-        return recursiveRemove(current->right, key);
+        return remove(current->right, key);
     } //if the key is greater than the current node, checks the nodes right key
 
     else {
@@ -385,4 +385,6 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
 
 void AVLTree::balanceNode(AVLNode *&node) {
 
-}
+
+
+} //end balanceNode
