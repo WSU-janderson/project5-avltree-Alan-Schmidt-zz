@@ -273,9 +273,15 @@ void AVLTree::printTree(ostream& os, AVLNode* node) const {
         return;
     } //base case
 
-    printTree(os, node->left);
-    cout << "KEY: " << node->key << " with VALUE: " << node->value << endl;
     printTree(os, node->right);
+
+    cout << "{" << node->key << ": ";
+    for (size_t i = 0; i < node->height; i++) {
+        cout << "\t";
+    } //adds tabs equal to the height of the node for formatting
+    cout << node->value << "}" << endl;
+
+    printTree(os, node->left);
 
 } //end printTree
 
