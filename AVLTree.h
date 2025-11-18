@@ -66,6 +66,7 @@ protected:
 
     private:
     AVLNode* root;
+    size_t totalSize;
 
     bool recursiveInsert(AVLNode*& node, const string& key, size_t value);
 
@@ -78,6 +79,10 @@ protected:
     AVLNode& recursiveBracket(AVLNode*& node, const string& key);
 
     vector<size_t> recursiveFindRange(const AVLNode* node, const std::string& lowKey, const std::string& highKey) const;
+
+    vector<string> recursiveKeys(const AVLNode* node) const;
+
+    void clear(AVLNode* node);
 
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node

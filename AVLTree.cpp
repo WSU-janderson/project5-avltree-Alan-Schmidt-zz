@@ -18,6 +18,7 @@ bool AVLTree::insert(const std::string& key, size_t value) {
     if (contains(key) == false) {
 
         if (recursiveInsert(root, key, value) == true) { //I'm pretty sure this will work?
+            totalSize++;
             return true;
         } //returns true if they key was inserted properly
 
@@ -61,6 +62,7 @@ bool AVLTree::remove(const std::string& key) {
     if (contains(key) == false) {
 
         if (recursiveRemove(root, key) == true) {
+            totalSize--;
             return true;
         } //returns true if the node was removed properly
 
@@ -217,27 +219,68 @@ vector<size_t> AVLTree::recursiveFindRange(const AVLNode* node, const std::strin
 
 vector<string> AVLTree::keys() const {
 
-}
+    return recursiveKeys(root);
+
+} //end keys
+
+vector<string> AVLTree::recursiveKeys(const AVLNode* node) const {
+
+    vector<string> keys;
+
+    if (node != nullptr) {
+
+        recursiveKeys(node->left); //calls recursiveKeys on the left child node
+        recursiveKeys(node->right); //calls recursiveKeys on the right child node
+        keys.push_back(node->key); //adds the current key to the vector keys
+
+    }
+
+    return keys;
+
+} //end recursiveKeys
 
 size_t AVLTree::size() const{
 
-}
+    return totalSize;
+
+} //end size
 
 size_t AVLTree::getHeight() const{
 
-}
+    //TODO: this
+
+} //end getHeight
 
 AVLTree::AVLTree(const AVLTree& other) {
 
-}
+    //TODO: this
+
+} //end AVLTree copy constructor
 
 void AVLTree::operator=(const AVLTree& other) {
+
+    //TODO: this
 
 }
 
 AVLTree::~AVLTree() {
 
-}
+    clear(root);
+
+} //end ~AVLTree
+
+void AVLTree::clear(AVLNode* node) {
+
+    if (node != nullptr) {
+
+        clear(node->left); //recursively calls clear on the current node's left node
+        clear(node->right); //recursively calls clear on the current node's right node
+        delete node; //removes the node from memory once its children are deleted
+        node = nullptr; //sets the node to null
+
+    }
+
+} //end clear
 
 ostream& operator<<(ostream& os, const AVLTree & avlTree) {
 
