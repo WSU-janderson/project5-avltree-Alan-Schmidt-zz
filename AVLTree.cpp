@@ -107,7 +107,7 @@ bool AVLTree::recursiveContains(const AVLNode *node, const string& key) const {
 
 optional<size_t> AVLTree::get(const std::string& key) const {
 
-    if (contains(key) == false) {
+    if (contains(key) == true) {
 
         return recursiveGet(root, key);
 
@@ -119,7 +119,7 @@ optional<size_t> AVLTree::get(const std::string& key) const {
 
 } //end get
 
-optional<size_t> AVLTree::recursiveGet(const AVLNode *node, const string& key) const {
+optional<size_t> AVLTree::recursiveGet(const AVLNode* node, const string& key) const {
 
     if (key == node->key) {
         return node->value;
@@ -225,6 +225,7 @@ size_t AVLTree::size() const{
 
 size_t AVLTree::getHeight() const{
 
+    return 0;
     //TODO: this, use a max height var after balancing
 
 } //end getHeight
@@ -262,26 +263,27 @@ void AVLTree::clear(AVLNode* node) {
 
 ostream& operator<<(ostream& os, const AVLTree & avlTree) {
 
-    avlTree.printTree(os, avlTree.root);
+    size_t depth = 0;
+
+    avlTree.printTree(os, avlTree.root, depth);
     return os;
 
 } //end operator<<
 
-void AVLTree::printTree(ostream& os, AVLNode* node) const {
+void AVLTree::printTree(ostream& os, AVLNode* node, size_t depth) const {
 
     if (node == nullptr) {
         return;
     } //base case
 
-    printTree(os, node->right);
+    printTree(os, node->right, depth + 1);
 
-    cout << "{" << node->key << ": ";
-    for (size_t i = 0; i < node->height; i++) {
+    for (size_t i = 0; i < depth; i++) {
         cout << "\t";
     } //adds tabs equal to the height of the node for formatting
-    cout << node->value << "}" << endl;
+    cout << "{" << node->key << ": " << node->value << "}" << endl;
 
-    printTree(os, node->left);
+    printTree(os, node->left, depth + 1);
 
 } //end printTree
 

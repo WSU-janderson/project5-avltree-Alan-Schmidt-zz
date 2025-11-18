@@ -66,13 +66,13 @@ protected:
 
     private:
     AVLNode* root;
-    size_t totalSize;
+    size_t totalSize = 0;
 
     bool recursiveInsert(AVLNode*& node, const string& key, size_t value);
 
     bool recursiveContains(const AVLNode* node, const string& key) const;
 
-    optional<size_t> recursiveGet(const AVLNode *node, const string& key) const;
+    optional<size_t> recursiveGet(const AVLNode* node, const string& key) const;
 
     AVLNode& recursiveBracket(AVLNode*& node, const string& key);
 
@@ -82,7 +82,7 @@ protected:
 
     void clear(AVLNode* node);
 
-    void printTree(ostream& os, AVLNode* node) const;
+    void printTree(ostream& os, AVLNode* node, size_t depth) const;
 
     /* Helper methods for remove */
     // this overloaded remove will do the recursion to remove the node
