@@ -224,21 +224,42 @@ size_t AVLTree::size() const{
 
 size_t AVLTree::getHeight() const{
 
-
+    return root->height;
 
 } //end getHeight
 
 AVLTree::AVLTree(const AVLTree& other) {
 
-    //TODO: this
+    root = recursiveCopy(other.root);
 
 } //end AVLTree copy constructor
 
+AVLTree::AVLNode* AVLTree::recursiveCopy(const AVLTree::AVLNode* node) {
+
+    if (node == nullptr) {
+        return nullptr;
+    } //base case; if the original node is null, sets the new node to null as well
+
+    AVLNode* newNode = new AVLNode(); //creates the new node
+
+    newNode->key = node->key;
+    newNode->value = node->value;
+    newNode->height = node->height; //copies the original node's values to the new one's
+
+    newNode->left = recursiveCopy(node->left);
+    newNode->right = recursiveCopy(node->right); //recursively copies the child nodes
+
+    return newNode;
+
+} //end recursiveCopy
+
 void AVLTree::operator=(const AVLTree& other) {
 
-    //TODO: this
+    clear(root); //empties tree for reassignment
 
-}
+    root = recursiveCopy(other.root); //calls recursiveCopy to copy all nodes from the other tree
+
+} //end operator=
 
 AVLTree::~AVLTree() {
 

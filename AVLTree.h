@@ -80,6 +80,8 @@ protected:
 
     vector<string> recursiveKeys(const AVLNode* node) const;
 
+    AVLNode* recursiveCopy(const AVLNode* node);
+
     void clear(AVLNode* node);
 
     void printTree(ostream& os, AVLNode* node, size_t depth) const;
