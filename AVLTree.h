@@ -92,6 +92,14 @@ protected:
     // You will implement this, but it is needed for removeNode()
     void balanceNode(AVLNode*& node);
 
+    void setHeight(AVLNode* node);
+
+    int getBalance(AVLNode* node);
+
+    void rightRotation(AVLNode* node);
+
+    void leftRotation(AVLNode* node);
+
 }; //end class AVLTree
 
 #endif //AVLTREE_H

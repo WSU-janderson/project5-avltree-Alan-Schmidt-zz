@@ -40,6 +40,7 @@ bool AVLTree::recursiveInsert(AVLNode*& node, const string& key, size_t value) {
         node->value = value;
         node->left = nullptr;
         node->right = nullptr;
+        balanceNode(node);
         return true;
 
     } //adds a new node with its key and value if the node is null and sets it's new left and right nodes to null
@@ -55,8 +56,6 @@ bool AVLTree::recursiveInsert(AVLNode*& node, const string& key, size_t value) {
     else {
         return false; //error catcher
     }
-
-    //TODO: Balance Tree
 
 } //end recursiveInsert
 
@@ -225,8 +224,7 @@ size_t AVLTree::size() const{
 
 size_t AVLTree::getHeight() const{
 
-    return 0;
-    //TODO: this, use a max height var after balancing
+
 
 } //end getHeight
 
@@ -371,6 +369,7 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
 
     if (key == current->key) {
         removeNode(current);
+        balanceNode(current);
         return true;
     } //removes the node, deletes it from memory, and returns true when the node is found
 
@@ -386,12 +385,86 @@ bool AVLTree::remove(AVLNode *&current, KeyType key) {
         return false; //error catcher
     }
 
-    //TODO: balance tree
-
 } //end remove
 
 void AVLTree::balanceNode(AVLNode *&node) {
 
+    if (node == nullptr) {
+        return;
+    } //base case
 
+    setHeight(node);
+
+    int balanceFactor = getBalance(node);
+    int leftBalanceFactor = getBalance(node->left);
+    int rightBalanceFactor = getBalance(node->right);
+
+    if (balanceFactor > 1 && leftBalanceFactor >= 0) {
+        rightRotation(node);
+    }
+
+    else if (balanceFactor > 1 && leftBalanceFactor < 0) {
+        leftRotation(node->left);
+        rightRotation(node);
+    }
+
+    else if (balanceFactor < -1 && rightBalanceFactor <= 0) {
+        rightRotation(node);
+    }
+
+    else if (balanceFactor < -1 && rightBalanceFactor > 0) {
+        rightRotation(node->right);
+        leftRotation(node);
+    }
+
+    else {
+        return;
+    } //error catcher
 
 } //end balanceNode
+
+void AVLTree::setHeight(AVLNode* node) {
+
+    node->height = (1 + max((node->left->getHeight()), (node->right->getHeight())));
+
+} //end setHeight
+
+int AVLTree::getBalance(AVLNode* node) {
+
+    if (node->isLeaf() == true) {
+        return -1;
+    } //sets balance factor to -1 if it's a leaf
+
+    else {
+        return ((node->left->getHeight()) - (node->right->getHeight()));
+    } //sets balance to left height - right height if it's not a leaf
+
+} //end getBalance
+
+void AVLTree::rightRotation(AVLNode* node) {
+
+    AVLNode* leftNode = node->left;
+    AVLNode* rotatedNode = leftNode->right;
+
+    leftNode->right = node;
+    node->left = rotatedNode; //rotates right
+
+    setHeight(node);
+    setHeight(leftNode);
+    setHeight(rotatedNode); //resets heights of nodes
+
+} //end rightRotation
+
+void AVLTree::leftRotation(AVLNode* node) {
+
+    AVLNode* rightNode = node->right;
+    AVLNode* rotatedNode = rightNode->left;
+
+    rightNode->left= node;
+    node->right = rotatedNode; //rotates left
+
+    setHeight(node);
+    setHeight(rightNode);
+    setHeight(rotatedNode); //resets heights of nodes
+
+} //end leftRotation
