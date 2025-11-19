@@ -1,4 +1,11 @@
-
+/*
+ *Alan Schmidt
+ *AVLTree Project
+ *This file contains all of the methods needed to make a binary search tree
+ *and *supposedly* properly balance it, although I don't think it works properly
+ Also, I don't have time to make header comments for each method, but I did comment
+ along each line as I went along.
+ */
 //imports
 #include "AVLTree.h"
 
@@ -40,22 +47,30 @@ bool AVLTree::recursiveInsert(AVLNode*& node, const string& key, size_t value) {
         node->value = value;
         node->left = nullptr;
         node->right = nullptr;
-        balanceNode(node);
+        node->height = 0;
         return true;
 
     } //adds a new node with its key and value if the node is null and sets it's new left and right nodes to null
 
+    bool done = false;
+
     if (key < node->key) {
-        return recursiveInsert(node->left, key, value);
+        done = recursiveInsert(node->left, key, value);
     } //tries to insert left if key is less than the node's key
 
     else if (key > node->key) {
-        return recursiveInsert(node->right, key, value);
+        done = recursiveInsert(node->right, key, value);
     } //tries to insert right if key is greater than the node's key
 
     else {
-        return false; //error catcher
-    }
+        return false;
+    } //error catcher
+
+    if (done) {
+        balanceNode(node);
+    } //balances if the node was inserted correctly
+
+    return done;
 
 } //end recursiveInsert
 
@@ -388,23 +403,30 @@ bool AVLTree::removeNode(AVLNode*& current){
 
 bool AVLTree::remove(AVLNode *&current, KeyType key) {
 
+    bool done = false;
+
     if (key == current->key) {
         removeNode(current);
-        balanceNode(current);
-        return true;
+        done = true;
     } //removes the node, deletes it from memory, and returns true when the node is found
 
     else if (key < current->key) {
-        return remove(current->left, key);
+        done = remove(current->left, key);
     } //if the key is less than the current node, checks the nodes left key
 
     else if (key > current->key) {
-        return remove(current->right, key);
+        done = remove(current->right, key);
     } //if the key is greater than the current node, checks the nodes right key
 
     else {
         return false; //error catcher
     }
+
+    if (done) {
+        balanceNode(current);
+    } //balances node if node was removed correctly
+
+    return done;
 
 } //end remove
 
@@ -430,13 +452,13 @@ void AVLTree::balanceNode(AVLNode *&node) {
     }
 
     else if (balanceFactor < -1 && rightBalanceFactor <= 0) {
-        rightRotation(node);
+        leftRotation(node);
     }
 
     else if (balanceFactor < -1 && rightBalanceFactor > 0) {
         rightRotation(node->right);
         leftRotation(node);
-    }
+    } // all of these check the balanc factor and rotate as needed
 
     else {
         return;
@@ -446,23 +468,59 @@ void AVLTree::balanceNode(AVLNode *&node) {
 
 void AVLTree::setHeight(AVLNode* node) {
 
-    node->height = (1 + max((node->left->getHeight()), (node->right->getHeight())));
+    if (node != nullptr) {
+
+        int leftHeight;
+        int rightHeight;
+
+        if (node->left == nullptr) {
+            leftHeight = -1;
+        }
+        else {
+            leftHeight = node->left->getHeight();
+        } //sets left height to height if not null
+
+        if (node->right == nullptr) {
+            rightHeight = -1;
+        }
+        else {
+            rightHeight = node->right->getHeight();
+        } //sets right height to height if not null
+
+        node->height = 1 + max(leftHeight, rightHeight);
+
+    } //end if
 
 } //end setHeight
 
 int AVLTree::getBalance(AVLNode* node) {
 
-    if (node->isLeaf() == true) {
+    if (node == nullptr) {
         return -1;
     } //sets balance factor to -1 if it's a leaf
 
+    int leftHeight;
+    int rightHeight;
+
+    if (node->left == nullptr) {
+        leftHeight = -1;
+    }
     else {
-        return ((node->left->getHeight()) - (node->right->getHeight()));
-    } //sets balance to left height - right height if it's not a leaf
+        leftHeight = node->left->getHeight();
+    } //sets left height to height if not null
+
+    if (node->right == nullptr) {
+        rightHeight = -1;
+    }
+    else {
+        rightHeight = node->right->getHeight();
+    } //sets right height to height if not null
+
+    return leftHeight - rightHeight;
 
 } //end getBalance
 
-void AVLTree::rightRotation(AVLNode* node) {
+void AVLTree::rightRotation(AVLNode*& node) {
 
     AVLNode* leftNode = node->left;
     AVLNode* rotatedNode = leftNode->right;
@@ -471,12 +529,13 @@ void AVLTree::rightRotation(AVLNode* node) {
     node->left = rotatedNode; //rotates right
 
     setHeight(node);
-    setHeight(leftNode);
     setHeight(rotatedNode); //resets heights of nodes
+
+    node = leftNode;
 
 } //end rightRotation
 
-void AVLTree::leftRotation(AVLNode* node) {
+void AVLTree::leftRotation(AVLNode*& node) {
 
     AVLNode* rightNode = node->right;
     AVLNode* rotatedNode = rightNode->left;
@@ -485,7 +544,8 @@ void AVLTree::leftRotation(AVLNode* node) {
     node->right = rotatedNode; //rotates left
 
     setHeight(node);
-    setHeight(rightNode);
     setHeight(rotatedNode); //resets heights of nodes
+
+    node = rightNode;
 
 } //end leftRotation

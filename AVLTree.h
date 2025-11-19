@@ -1,5 +1,10 @@
-/**
- * AVLTree.h
+/*
+*Alan Schmidt
+ *AVLTree Project
+ *This header file contains all of the method headers and global variables used
+ *through the project. As stated in the cpp file, I don't have time to add a block comment above
+ *each method header, but there are many inline comments in the cpp file that
+ *I typed as I was programming, so hopefully those will suffice.
  */
 
 #ifndef AVLTREE_H
@@ -98,9 +103,9 @@ protected:
 
     int getBalance(AVLNode* node);
 
-    void rightRotation(AVLNode* node);
+    void rightRotation(AVLNode*& node);
 
-    void leftRotation(AVLNode* node);
+    void leftRotation(AVLNode*& node);
 
 }; //end class AVLTree
 

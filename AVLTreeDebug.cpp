@@ -47,68 +47,68 @@ int main() {
     cout << "tree height: " << tree.getHeight() << endl; // 3
     cout << endl;
 
-    // contains
-    bool containsResult;
-    containsResult = tree.contains("A"); // true
-    if (containsResult) {
-        cout << "true" << endl;
-    }
-    else {
-        cout << "false" << endl;
-    }
-    containsResult = tree.contains("N"); // false
-    if (containsResult) {
-        cout << "true" << endl;
-    }
-    else {
-        cout << "false" << endl;
-    }
+     // contains
+     bool containsResult;
+     containsResult = tree.contains("A"); // true
+     if (containsResult) {
+         cout << "true" << endl;
+     }
+     else {
+         cout << "false" << endl;
+     }
+     containsResult = tree.contains("N"); // false
+     if (containsResult) {
+         cout << "true" << endl;
+     }
+     else {
+         cout << "false" << endl;
+     }
 
-    // get
-    optional<int> getResult;
+     // get
+     optional<int> getResult;
 
-    getResult = tree.get("A"); // 65
-    cout << "A: " << getResult.value() << endl;
+     getResult = tree.get("A"); // 65
+     cout << "A: " << getResult.value() << endl;
 
-    getResult = tree.get("C"); // 67
-    cout << "C: " << getResult.value() << endl;
+     getResult = tree.get("C"); // 67
+     cout << "C: " << getResult.value() << endl;
 
-    getResult = tree.get("Q"); // getResult has no value
-    cout << "Q: " << getResult.has_value() << endl; // print 0
-    cout << endl;
+     getResult = tree.get("Q"); // getResult has no value
+     cout << "Q: " << getResult.has_value() << endl; // print 0
+     cout << endl;
 
-    // findRange
-    vector<int> rangeTest = tree.findRange("D", "W");
-    // 70 68 82 75 77 86
-    for (auto val: rangeTest) {
-        cout << val << " ";
-    }
-    cout << endl << endl;
+     // findRange
+     vector<int> rangeTest = tree.findRange("D", "W");
+     // 70 68 82 75 77 86
+     for (auto val: rangeTest) {
+         cout << val << " ";
+     }
+     cout << endl << endl;
 
-    // operator[]
-    tree["A"] = 108;
-    cout << tree << endl;
-    cout << endl;
+     // operator[]
+     tree["A"] = 108;
+     cout << tree << endl;
+     cout << endl;
 
-    // remove
-    bool removeResult;
-    removeResult= tree.remove("A"); // "A" is a leaf
-    cout << endl << endl;
-    cout << tree << endl;
+     // remove
+     bool removeResult;
+     removeResult= tree.remove("A"); // "A" is a leaf
+     cout << endl << endl;
+     cout << tree << endl;
 
-    removeResult = tree.remove("C"); // "C" has one child, single rotate left
-    cout << endl << endl;
-    cout << tree << endl;
+     removeResult = tree.remove("C"); // "C" has one child, single rotate left
+     cout << endl << endl;
+     cout << tree << endl;
 
-    removeResult = tree.remove("F"); // "F" has two children
-    cout << endl << endl;
-    cout << tree << endl;
+     removeResult = tree.remove("F"); // "F" has two children
+     cout << endl << endl;
+     cout << tree << endl;
 
-    removeResult = tree.remove("V");
-    removeResult = tree.remove("X");
-    removeResult = tree.remove("Z"); // double rotate right
-    cout << endl << endl;
-    cout << tree << endl;
+     removeResult = tree.remove("V");
+     removeResult = tree.remove("X");
+     removeResult = tree.remove("Z"); // double rotate right
+     cout << endl << endl;
+     cout << tree << endl;
 
-    return 0;
+     return 0;
 }
